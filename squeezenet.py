@@ -23,8 +23,8 @@ ie = IECore()
 __xml="/home/intel/openvino_models/ir/public/squeezenet1.1/FP16/squeezenet1.1.xml"
 __bin="/home/intel/openvino_models/ir/public/squeezenet1.1/FP16/squeezenet1.1.bin"
 __label="squeezenet1.1.labels"
-#__image="cofee_cup.png"
-__image="video.png"
+__image="cofee_cup.png"
+#__image="video.png"
 
 #___Set device and plug for Inference engine 
 __plug="CPU"			#option CPU,GPU,MYRIAD,MULTI:**,HETERO:FPGA,CPU
