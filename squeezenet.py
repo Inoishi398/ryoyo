@@ -23,7 +23,8 @@ ie = IECore()
 __xml="/home/intel/openvino_models/ir/public/squeezenet1.1/FP16/squeezenet1.1.xml"
 __bin="/home/intel/openvino_models/ir/public/squeezenet1.1/FP16/squeezenet1.1.bin"
 __label="squeezenet1.1.labels"
-__image="cofee_cup.png"
+#__image="cofee_cup.png"
+__image="video.png"
 
 #___Set device and plug for Inference engine 
 __plug="CPU"			#option CPU,GPU,MYRIAD,MULTI:**,HETERO:FPGA,CPU
@@ -39,11 +40,18 @@ batch,channel,height,width = net.inputs['data'].shape
 exec_net = ie.load_network(network=net, device_name=__plug, num_requests=1)
 
 #___Read image and format for openvino format
-img = cv2.imread(__image) #read image file
-img = cv2.resize(img, (width,height)) 
+img_face = cv2.imread(__image) #read image file
+img = cv2.resize(img_face, (width,height)) 
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 img = img.transpose((2, 0, 1))
 img = img.reshape((1, channel, height, width))
+
+#img = cv2.imread(__image) #read image file
+#img = cv2.resize(img, (width,height))
+#img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+#img = img.transpose((2, 0, 1))
+#img = img.reshape((1, channel, height, width))
+
 
 #___ execute inference engine with image and get result as "res" start sync mode
 res = exec_net.infer(inputs={'data':img}) 
@@ -84,6 +92,11 @@ print()
 print("Used plugin device is",__plug)
 print("Inference engine is",__xml)
 print("___Squeesenet1.1 End")
+
+cv2.imshow('img_face',img_face)
+cv2.waitKey(2000)
+cv2.destroyAllWindows()
+
 
 
 
